@@ -1,5 +1,7 @@
 # KitoMapsGoogle
 
+**[Documentation](https://wyksofts-inc.github.io/KitoMapsGoogle/documentation/kitomapsgoogle/)**
+
 [KitoMaps](https://github.com/WykSofts-Inc/KitoMaps) on the Google Maps SDK for iOS: the same pins,
 clusters, cards, routes and controls as `KitoMapView`, drawn on a Google Map. Part of the
 [Kito](https://github.com/WykSofts-Inc/KitoDevKit) ecosystem.
