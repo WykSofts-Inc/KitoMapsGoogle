@@ -149,10 +149,12 @@ struct KitoGoogleMapRepresentable: UIViewRepresentable {
     }
 
     func makeUIView(context: Context) -> KitoGoogleContainerView {
-        context.coordinator.container
+        context.coordinator.layoutDirection = context.environment.layoutDirection
+        return context.coordinator.container
     }
 
     func updateUIView(_ uiView: KitoGoogleContainerView, context: Context) {
+        context.coordinator.layoutDirection = context.environment.layoutDirection
         context.coordinator.update(self)
     }
 }
@@ -186,6 +188,8 @@ final class KitoGoogleContainerView: UIView {
 @MainActor
 final class KitoGoogleMapCoordinator: NSObject {
     private(set) var parent: KitoGoogleMapRepresentable
+    /// Maps `fitPadding`'s leading/trailing onto the map's physical left/right.
+    var layoutDirection: LayoutDirection = .leftToRight
     let container = KitoGoogleContainerView()
     private var mapView: GMSMapView { container.mapView }
 
@@ -274,7 +278,9 @@ final class KitoGoogleMapCoordinator: NSObject {
         guard let first = coordinates.first else { return }
         let bounds = coordinates.dropFirst().reduce(GMSCoordinateBounds(coordinate: first, coordinate: first)) { $0.includingCoordinate($1) }
         let padding = parent.options.fitPadding
-        let insets = UIEdgeInsets(top: padding.top, left: padding.leading, bottom: padding.bottom, right: padding.trailing)
+        let isRTL = layoutDirection == .rightToLeft
+        let insets = UIEdgeInsets(top: padding.top, left: isRTL ? padding.trailing : padding.leading,
+                                  bottom: padding.bottom, right: isRTL ? padding.leading : padding.trailing)
         let target = mapView.camera(for: bounds, insets: insets)
         if let target, target.zoom > maximumZoom {
             move(GMSCameraUpdate.setTarget(target.target, zoom: maximumZoom), animated: animated)
