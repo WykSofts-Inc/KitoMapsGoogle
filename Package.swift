@@ -14,7 +14,7 @@ let package = Package(
     platforms: [.iOS(.v17)],
     products: [.library(name: "KitoMapsGoogle", targets: ["KitoMapsGoogle"])],
     dependencies: [
-        .package(url: "https://github.com/WykSofts-Inc/KitoMaps.git", from: "0.1.0"),
+        .package(url: "https://github.com/WykSofts-Inc/KitoMaps.git", from: "0.2.0"),
         .package(url: "https://github.com/googlemaps/ios-maps-sdk", from: "11.1.0"),
     ],
     targets: [

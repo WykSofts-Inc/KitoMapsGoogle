@@ -66,10 +66,16 @@ Markers are `KitoMapPinView`s rendered to images (cached) inside a live marker v
 springs, pop-ins, cluster fly-outs and courier pulses animate just like on Apple Maps. Avatar photos
 are downloaded and swapped in when they arrive. Reduce Motion turns the springs into fades.
 
+## Migrating from 0.1
+
+0.2.0 needs KitoMaps 0.2.0, which renamed `KitoRoute` to `KitoMapRoute` so KitoMaps no longer
+clashes with KitoNavigation's `KitoRoute`. Nothing in this package was renamed; update KitoMaps
+alongside it and replace `KitoRoute` with `KitoMapRoute` wherever your own code spells it out.
+
 ## Installation
 
 ```swift
-.package(url: "https://github.com/WykSofts-Inc/KitoMapsGoogle.git", from: "0.1.0")
+.package(url: "https://github.com/WykSofts-Inc/KitoMapsGoogle.git", from: "0.2.0")
 ```
 
 iOS 17+. Brings in [KitoMaps](https://github.com/WykSofts-Inc/KitoMaps) and Google's
